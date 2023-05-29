@@ -11,11 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/newform" element={<NewForm />} />
-    </Routes>
+    <App />
   </BrowserRouter>
 );
 
