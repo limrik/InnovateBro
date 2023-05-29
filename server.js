@@ -24,71 +24,90 @@ mongoose
 require("./users");
 const collection = mongoose.model("users");
 
-module.exports = collection;
+require("./posts");
+const collection2 = mongoose.model("posts");
 
+module.exports = { collection, collection2 };
 
 app.get("/", (req, res) => {
   res.send("Express is here");
 });
 
 app.post("/", async (req, res) => {
-    const { name, email, password } = req.body;
-  
-    const data = {
-      name: name,
-      email: email,
-      password: password,
-    };
-  
-    try {
-      const check = await collection.findOne({ email: email });
-  
-      if (check) {
-        const passOk = bcrypt.compareSync(password, check.password);
-        if (passOk) {
-          jwt.sign(
-            { email: check.email, id: check._id },
-            jwtSecret,
-            {},
-            (err, token) => {
-              if (err) throw err;
-              res.cookie("token", token).json("pass ok");
-            }
-          );
-        } else {
-          res.json("pass not ok");
-        }
+  const { name, email, password } = req.body;
+
+  const data = {
+    name: name,
+    email: email,
+    password: password,
+  };
+
+  try {
+    const check = await collection.findOne({ email: email });
+
+    if (check) {
+      const passOk = bcrypt.compareSync(password, check.password);
+      if (passOk) {
+        jwt.sign(
+          { email: check.email, id: check._id },
+          jwtSecret,
+          {},
+          (err, token) => {
+            if (err) throw err;
+            res.cookie("token", token).json("pass ok");
+          }
+        );
       } else {
-        res.json("does not exist");
+        res.json("pass not ok");
       }
-    } catch (e) {
+    } else {
       res.json("does not exist");
     }
-  });
-  
-  app.post("/registerUser", async (req, res) => {
-    const { name, email, password } = req.body;
-  
-    const data = {
-      name: name,
-      email: email,
-      password: bcrypt.hashSync(password, bcryptSalt),
-    };
-  
-    try {
-      const check = await collection.findOne({ email: email });
-  
-      if (check) {
-        res.json("exist");
-      } else {
-        res.json("does not exist");
-        await collection.insertMany([data]);
-      }
-    } catch (e) {
+  } catch (e) {
+    res.json("does not exist");
+  }
+});
+
+app.post("/registerUser", async (req, res) => {
+  const { name, email, password } = req.body;
+
+  const data = {
+    name: name,
+    email: email,
+    password: bcrypt.hashSync(password, bcryptSalt),
+  };
+
+  try {
+    const check = await collection.findOne({ email: email });
+
+    if (check) {
+      res.json("exist");
+    } else {
       res.json("does not exist");
+      await collection.insertMany([data]);
     }
+  } catch (e) {
+    res.json("does not exist");
+  }
+});
+
+app.post("/create", async (req, res) => {
+  const newPost = new collection2({
+    BriefDescription: req.body.BriefDescription,
+    Commitment: req.body.Commitment,
+    Duration: req.body.Duration,
+    Motivation: req.body.Motivation,
+    ProblemStatement: req.body.ProblemStatement,
+    Title: req.body.Title,
+    Vision: req.body.Vision,
   });
-  
-  app.listen(3001, function () {
-    console.log(`Server is running on port ${port}`);
-  });
+
+  newPost
+    .save()
+    .then((doc) => console.log(doc))
+    .catch((err) => console.log(err));
+});
+
+app.listen(3001, function () {
+  console.log(`Server is running on port ${port}`);
+});
