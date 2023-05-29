@@ -118,6 +118,15 @@ app.post("/create", async (req, res) => {
     ProblemStatement: req.body.ProblemStatement,
     Title: req.body.Title,
     Vision: req.body.Vision,
+    Role_accountant: req.body.Role_accountant,
+    Role_analyst: req.body.Role_analyst,
+    Role_designer: req.body.Role_designer,
+    Role_finance: req.body.Role_finance,
+    Role_marketing: req.body.Role_marketing,
+    Role_product: req.body.Role_product,
+    Role_research: req.body.Role_research,
+    Role_sales: req.body.Role_sales,
+    Role_software: req.body.Role_software,
   });
 
   newPost
