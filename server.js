@@ -35,16 +35,14 @@ app.get("/", (req, res) => {
   res.send("Express is here");
 });
 
-// app.get("/user", (req, res) => {
-//   const { email } = req.body;
-//   database
-//     .collection("users")
-//     .findOne({ email: email })
-//     .toArray((err, result) => {
-//       if (err) throw err;
-//       res.send(result);
-//     });
-// });
+app.get("/fetchall", async (req, res) => {
+  try {
+    const allPost = await collection2.find({});
+    res.send({ status: "ok", data: allPost });
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 app.post("/", async (req, res) => {
   const { name, email, password } = req.body;
