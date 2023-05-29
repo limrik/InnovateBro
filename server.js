@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 require("dotenv").config();
 
@@ -15,6 +16,7 @@ const connection_string = process.env.MONGO_URL;
 const port = process.env.PORT || 3001;
 
 const bcryptSalt = bcrypt.genSaltSync(10);
+const jwtSecret = "randomString";
 
 mongoose
   .connect(connection_string)
@@ -33,6 +35,17 @@ app.get("/", (req, res) => {
   res.send("Express is here");
 });
 
+// app.get("/user", (req, res) => {
+//   const { email } = req.body;
+//   database
+//     .collection("users")
+//     .findOne({ email: email })
+//     .toArray((err, result) => {
+//       if (err) throw err;
+//       res.send(result);
+//     });
+// });
+
 app.post("/", async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -44,6 +57,7 @@ app.post("/", async (req, res) => {
 
   try {
     const check = await collection.findOne({ email: email });
+    console.log(collection.findOne({ email: email }));
 
     if (check) {
       const passOk = bcrypt.compareSync(password, check.password);
@@ -57,6 +71,13 @@ app.post("/", async (req, res) => {
             res.cookie("token", token).json("pass ok");
           }
         );
+            res.cookie("token", token).json({
+              pass: "pass ok",
+              user: check,
+            });
+          }
+        );
+        console.log(res);
       } else {
         res.json("pass not ok");
       }
