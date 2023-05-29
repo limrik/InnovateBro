@@ -26,7 +26,10 @@ mongoose
 require("./users");
 const collection = mongoose.model("users");
 
-module.exports = collection;
+require("./posts");
+const collection2 = mongoose.model("posts");
+
+module.exports = { collection, collection2 };
 
 app.get("/", (req, res) => {
   res.send("Express is here");
@@ -65,6 +68,9 @@ app.post("/", async (req, res) => {
           {},
           (err, token) => {
             if (err) throw err;
+            res.cookie("token", token).json("pass ok");
+          }
+        );
             res.cookie("token", token).json({
               pass: "pass ok",
               user: check,
@@ -104,6 +110,23 @@ app.post("/registerUser", async (req, res) => {
   } catch (e) {
     res.json("does not exist");
   }
+});
+
+app.post("/create", async (req, res) => {
+  const newPost = new collection2({
+    BriefDescription: req.body.BriefDescription,
+    Commitment: req.body.Commitment,
+    Duration: req.body.Duration,
+    Motivation: req.body.Motivation,
+    ProblemStatement: req.body.ProblemStatement,
+    Title: req.body.Title,
+    Vision: req.body.Vision,
+  });
+
+  newPost
+    .save()
+    .then((doc) => console.log(doc))
+    .catch((err) => console.log(err));
 });
 
 app.listen(3001, function () {
