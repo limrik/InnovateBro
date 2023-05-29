@@ -30,6 +30,42 @@ const postSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    Role_accountant: {
+      type: Boolean,
+      required: false,
+    },
+    Role_analyst: {
+      type: Boolean,
+      required: false,
+    },
+    Role_designer: {
+      type: Boolean,
+      required: false,
+    },
+    Role_finance: {
+      type: Boolean,
+      required: false,
+    },
+    Role_marketing: {
+      type: Boolean,
+      required: false,
+    },
+    Role_product: {
+      type: Boolean,
+      required: false,
+    },
+    Role_research: {
+      type: Boolean,
+      required: false,
+    },
+    Role_sales: {
+      type: Boolean,
+      required: false,
+    },
+    Role_software: {
+      type: Boolean,
+      required: false,
+    },
   },
   {
     collection: "posts",
