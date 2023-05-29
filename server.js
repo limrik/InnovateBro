@@ -32,7 +32,18 @@ app.get("/", (req, res) => {
   res.send("Express is here");
 });
 
-app.post("/registerUser", async (req, res) => {
+// app.get("/user", (req, res) => {
+//   const { email } = req.body;
+//   database
+//     .collection("users")
+//     .findOne({ email: email })
+//     .toArray((err, result) => {
+//       if (err) throw err;
+//       res.send(result);
+//     });
+// });
+
+app.post("/", async (req, res) => {
   const { name, email, password } = req.body;
 
   const data = {
@@ -43,6 +54,7 @@ app.post("/registerUser", async (req, res) => {
 
   try {
     const check = await collection.findOne({ email: email });
+    console.log(collection.findOne({ email: email }));
 
     if (check) {
       const passOk = bcrypt.compareSync(password, check.password);
@@ -53,9 +65,13 @@ app.post("/registerUser", async (req, res) => {
           {},
           (err, token) => {
             if (err) throw err;
-            res.cookie("token", token).json("pass ok");
+            res.cookie("token", token).json({
+              pass: "pass ok",
+              user: check,
+            });
           }
         );
+        console.log(res);
       } else {
         res.json("pass not ok");
       }
@@ -67,7 +83,7 @@ app.post("/registerUser", async (req, res) => {
   }
 });
 
-app.post("/", async (req, res) => {
+app.post("/registerUser", async (req, res) => {
   const { name, email, password } = req.body;
 
   const data = {

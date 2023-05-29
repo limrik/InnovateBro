@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function Register() {
+function Register({ setResponse }) {
   const navigate = useNavigate();
   const [user, setUser] = useState({
     name: "",
@@ -29,6 +29,7 @@ function Register() {
             alert("user already exists");
           } else if (res.data === "does not exist") {
             alert("Registration successful");
+            setResponse(user);
             navigate("/home");
           }
         })
