@@ -50,7 +50,7 @@ export default function Final() {
             className="h-10 px-5 text-green-700 transition-colors duration-150 border border-gray-300 rounded-lg focus:shadow-outline hover:bg-green-500 hover:text-green-100"
             onClick={createPost}
           >
-            Close
+            Submit
           </button>
         </a>
       </div>

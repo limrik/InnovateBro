@@ -21,7 +21,7 @@ function Home({ response }) {
 
   return (
     <>
-      <div className="min-h screen bg-bg1 bg-no-repeat bg-cover h-[1200px]">
+      <div className="h-full screen bg-[#EBEDEF] bg-no-repeat bg-cover h-[1200px]">
         {" "}
         <br></br>
         <div>
