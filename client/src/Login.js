@@ -2,16 +2,8 @@ import { Form, Button } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 
 function Login({ setResponse }) {
-  //   function handleCallbackResponse(response) {
-  //     console.log("Encoded JWT ID token: " + response.credential);
-  //     var userObject = jwt_decode(response.credential);
-  //     console.log(userObject);
-  //     navigate("/home");
-  //   }
-
   const navigate = useNavigate();
   const [user, setUser] = useState({
     email: "",
@@ -95,10 +87,10 @@ function Login({ setResponse }) {
       <div className="relative flex flex-col m-40 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
         <div className="flex flex-col justify-center p-8 md:p-14">
           <span className="mb-3 text-4xl font-bold font-poppins">
-            Welcome to I-BROOOO!
+            Welcome to InnovateBro!
           </span>
           <span className="font-light text-gray-500 mb-8 font-poppins">
-            Start working like a horse today!
+            Start seeing changes today!
           </span>
           <Form>
             <Form.Group>
