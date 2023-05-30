@@ -39,6 +39,7 @@ function Home({ response }) {
             })}
           </div>
         </div>
+        <br></br>
       </div>
     </>
   );

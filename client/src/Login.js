@@ -83,7 +83,7 @@ function Login({ setResponse }) {
   };
 
   return (
-    <div className="flex items-center justify-center min-h screen bg-bg1 bg-no-repeat bg-cover">
+    <div className="h-full flex items-center justify-center min-h screen bg-[#EBEDEF]">
       <div className="relative flex flex-col m-40 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
         <div className="flex flex-col justify-center p-8 md:p-14">
           <span className="mb-3 text-4xl font-bold font-poppins">
