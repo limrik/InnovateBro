@@ -26,7 +26,7 @@ function Home({ response }) {
         <br></br>
         <div>
           <h1 class="text-center font-bold">
-            Hey {response.name} Ready to work like a dog?
+            Hey {response.name ? response.name : "bro"}, ready to innovate?
           </h1>{" "}
           <div>
             <NewForm />
